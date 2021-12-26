@@ -1,0 +1,11 @@
+{
+    "avatar": "mhmd ali",
+    "ok":"Ok",
+    "setting":{
+        "lang":"Language",
+        "returnTODefaultColor":"Return to the default color",
+        "darkMode": "Dark Mode",
+        "menuColor":"Menu Color",
+        "primaryColor":"Primary Color"
+    }
+}
