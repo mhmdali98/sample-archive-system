@@ -67,9 +67,9 @@
             <v-card-title class="blue-grey white--text">
               <span class="">الاعلانات</span>
               <v-spacer></v-spacer>
-              <v-btn outlined color="white" dark depressed @click="openAds">
+              <!-- <v-btn outlined color="white" dark depressed @click="openAds">
                 كل الاعلانات
-              </v-btn>
+              </v-btn> -->
             </v-card-title>
             <v-card-text class="py-0">
               <v-timeline dense>
@@ -79,7 +79,7 @@
                      <h2 class="blue-grey--text text--darken-2"> {{ item.title }} </h2>
                      <v-divider class="blue-grey my-2"></v-divider>
                      <p class="blue-grey--text">
-                       {{item.desc}}
+                       {{item.description}}
                      </p>
                     </v-alert>
                   </v-timeline-item>
@@ -102,27 +102,31 @@ export default {
   data() {
     return {
       items: [
-        {
-          title: "عطلة رسميه",
-          date: "2021-09-12 12:13 AM",
-          desc:
-            "الاحد القادم المصادف 2021-12-27 عطلة رسميه بماسبة عيد المسيح"
-        },
-        {
-          title: "اجتماع لقسم المحاسبة",
-          date: "2021-09-12 12:13 AM",
-          desc:
-            "يرجى حضور كل موظفي قسم المحاسبة للاجتماع الساعة 3 مساء "
-        }
+       
       ]
     };
   },
   mounted() {},
   activated() {},
   computed: {},
-  created() {},
+  created() {
+    this.getAd()
+  },
 
   methods: {
+     getAd() {
+      this.loading = true;
+      Axios.get("news")
+        .then(res => {
+          this.loading = false;
+          this.items = res.data;
+          // console.log(res.data);
+        })
+        .catch(() => {
+          this.loading = false;
+        });
+    },
+
     openAds(){
       this.$router.push({
         path: `adBoard`

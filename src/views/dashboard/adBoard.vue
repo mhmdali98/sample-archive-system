@@ -48,7 +48,7 @@
                     </v-col>
                         <v-col class="py-0" cols="12" sm="12" md="12">
                       <v-textarea
-                        v-model="editedItem.desc"
+                        v-model="editedItem.description"
                         label=" الموضوع"
                         outlined
                         :rules="[rules.required]"
@@ -131,18 +131,20 @@ export default {
         align: "start",
         value: "title"
       },
-      { text: "الموضوغ", value: "desc" },
+      { text: "الموضوغ", value: "description" },
       { text: "العمليات", value: "actions", sortable: false }
     ],
     desserts: [],
     ognaizationList: [],
     editedIndex: -1,
     editedItem: {
-      name: "",
+      title: "",
+      description:"",
       id: "",
     },
     defaultItem: {
-      name: ""
+      title: "",
+      description:"",
     }
   }),
 
@@ -165,7 +167,7 @@ export default {
   methods: {
     getOrg() {
       this.loading = true;
-      Axios.get("ads")
+      Axios.get("news")
         .then(res => {
           this.loading = false;
           this.desserts = res.data;
@@ -201,7 +203,7 @@ export default {
         cancelButtonText: "لا"
       }).then(result => {
         if (result.value) {
-          Axios.delete("Ognaization?Id=" + item.id)
+          Axios.delete("news?Id=" + item.id)
             .then(() => {
               Swal.fire("تم ", "تمت العملية  بنجاح", "success");
               this.getOrg();
@@ -229,7 +231,7 @@ export default {
           phoneNumber: this.editedItem.phone.replace(/ /g, ""),
           role: this.editedItem.perID
         };
-        Axios.put("ads?id=" + this.editedItem.id, editData)
+        Axios.put("news?id=" + this.editedItem.id, editData)
           .then(() => {
             this.loadSave = false;
             this.getOrg();
@@ -253,9 +255,9 @@ export default {
           });
       } else if (
         this.editedItem.title &&
-        this.editedItem.desc 
+        this.editedItem.description 
       ) {
-        Axios.post("ads", this.editedItem)
+        Axios.post("news", this.editedItem)
           .then(() => {
             this.loadSave = false;
             this.getOrg();
@@ -288,7 +290,6 @@ export default {
           });
       } else {
         this.loadSave = false;
-
         Swal.fire({
           title: "تاكد من ملى المعلومات",
           text: "",

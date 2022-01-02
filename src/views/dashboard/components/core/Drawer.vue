@@ -35,13 +35,13 @@
         />
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title>mohammed ali</v-list-item-title>
-        <v-list-item-subtitle>user</v-list-item-subtitle>
+        <v-list-item-title>{{$store.state.userName}}</v-list-item-title>
+        <v-list-item-subtitle>{{$store.state.roleName}}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
     <v-divider class="mb-1" />
-    <v-list nav dense v-for="(item, i) in computedItems" :key="i" shaped :class="$i18n.locale == 'ar'? 'pr-0' : 'pl-0'">
-      <v-list-item link :to="item.to" color="primary lighten-1">
+    <v-list nav dense v-for="(item, i) in computedItems" :key="i" shaped :class="$i18n.locale == 'ar'? 'pr-0' : 'pl-0'" v-if="item.auth || $store.state.roleName == 'ADMIN'">
+      <v-list-item link :to="item.to" color="primary lighten-1" >
         <v-list-item-icon>
           <v-icon>{{item.icon}}</v-icon>
         </v-list-item-icon>
@@ -67,38 +67,45 @@ export default {
     items: [
       {
         icon: "mdi-view-dashboard",
-        title: "الاحصائيات",
-        to: "/admin/dashboard"
+        title: "الرئيسية",
+        to: "/admin/dashboard",
+        auth:true,
       },
       {
         icon: "mdi-account",
         title: "المستخدمين",
-        to: "/admin/users"
+        to: "/admin/users",
+        auth:false,
       },
        {
         icon: "mdi-lan",
         title: "الاقسام",
-        to: "/admin/org"
+        to: "/admin/org",
+        auth:false,
       },
       {
         icon: "mdi-download ",
         title: "الكتب الواردة",
-        to: "/admin/inBook"
+        to: "/admin/inBook",
+        auth:true,
       },
       {
         icon: "mdi-upload ",
         title: "الكتب الصادرة",
-        to: "/admin/outBook"
+        to: "/admin/outBook",
+        auth:true,
       },
        {
         icon: "mdi-bulletin-board",
         title: "لوحة الاعلانات",
-        to: "/admin/adBoard"
+        to: "/admin/adBoard",
+        auth:false,
       },
       {
         icon: "mdi-cog",
         title: "الاعدادات",
-        to: "/admin/setting"
+        to: "/admin/setting",
+        auth:true,
       }
     ]
   }),

@@ -217,9 +217,7 @@ export default {
       this.loadSave = true;
       if (this.editedIndex > -1) {
         const editData = {
-          name: this.editedItem.username,
-          phoneNumber: this.editedItem.phone.replace(/ /g, ""),
-          role: this.editedItem.perID
+          name: this.editedItem.name
         };
         Axios.put("Ognaization?id=" + this.editedItem.id, editData, {
           headers: {
@@ -250,19 +248,17 @@ export default {
             });
           });
       } else if (
-        this.editedItem.userName &&
-        this.editedItem.password &&
-        this.editedItem.fullName &&
-        this.editedItem.roleId &&
-        this.editedItem.ognaizationId
+        this.editedItem.name 
       ) {
-        Axios.post("Ognaization", this.editedItem)
+        Axios.post("Ognaization", {
+          name:this.editedItem.name 
+        })
           .then(() => {
             this.loadSave = false;
             this.getOrg();
             this.close();
             Swal.fire({
-              title: "تم اضافة المستخدم",
+              title: "تم اضافة القسم",
               text: "",
               icon: "success",
               confirmButtonText: "اغلاق"
@@ -273,7 +269,7 @@ export default {
             this.loadSave = false;
             if (err.response.data.code == 400.2) {
               Swal.fire({
-                title: "اسم المستخدم موجود",
+                title: "اسم القسم موجود",
                 text: "",
                 icon: "error",
                 confirmButtonText: "اغلاق"
